@@ -7,6 +7,7 @@ const subscribeToTimer = (cb) => {
 }
 
 const toggleVote = (voteCB) => {
+  console.log('CLIENT: User clicked the toggleVote ');
   socket.on('vote', vote => voteCB(vote))
   socket.emit('toggleVote', false)
 }

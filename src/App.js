@@ -11,11 +11,9 @@ class App extends Component {
       timestamp
     }));
 
-    toggleVote( (currentVote) => this.setState({ vote: !currentVote }))
-
     this.state = {
       timestamp: 'no timestamp yet',
-      toggleVote: false
+      vote: false
     };
 
   }
@@ -27,9 +25,9 @@ class App extends Component {
           This is the timer value: {this.state.timestamp}
         </p>
         <h3>
-          The current vote is set to: {this.state.toggleVote ? `ON` : 'OFF' }
+          The current vote is set to: {this.state.vote ? `ON` : 'OFF' }
         </h3>
-        <button onClick={toggleVote((currentVote) => {this.setState({ vote: !currentVote })})}>Toggle Me</button>
+        <button onClick={toggleVote((this.state.vote) => {this.setState({ vote: !currentVote })})}>Toggle Me</button>
       </div>
     );
   }

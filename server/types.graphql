@@ -1,0 +1,43 @@
+type User @model {
+  id: ID! @isUnique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  firstName: String
+  lastName: String
+  email: String
+  password: String
+  tokens: [Browser!]! @relation(name: "UserTokens")
+}
+
+type Poll @model {
+  id: ID! @isUnique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  title: String
+  description: String
+  url: String! @isUnique
+  participants: [Browser!]! @relation(name: "PollParticipants")
+  author: Browser! @relation(name: "PollAdmin")
+}
+
+type Browser @model {
+  id: ID! @isUnique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  token: String!
+  user: User @relation(name: "UserTokens")
+  polls: [Poll!]! @relation(name: "PollParticipants")
+  pollsCreated: [Poll!]! @relation(name: "PollAdmin")
+  thoughtsVoted: [Thought!]! @relation(name: "ThoughtVotes")
+  thoughtsCreated: [Thought!]! @relation(name: "ThoughtCreator")
+}
+
+type Thought @model {
+  id: ID! @isUnique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  description: String!
+  votes: [Browser!]! @relation(name: "ThoughtVotes")
+  flagged: Boolean @defaultValue(value: "false")
+  creator: Browser! @relation(name: "ThoughtCreator")
+}
